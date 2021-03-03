@@ -21,4 +21,34 @@ public class TimeMoment {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public boolean equals(TimeMoment moment) {
+        if (this.hour == moment.hour && this.minute == moment.minute)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean isEarly(TimeMoment moment) {
+        if (this.hour < moment.hour)
+            return true;
+        else
+            if (this.hour == moment.hour && this.minute < moment.minute)
+            return true;
+
+            return false;
+    }
+
+    public boolean isLater(TimeMoment moment) {
+        if (this.hour > moment.hour)
+            return true;
+        else
+        if (this.hour == moment.hour && this.minute > moment.minute)
+            return true;
+
+        return false;
+    }
+
+
+
 }
