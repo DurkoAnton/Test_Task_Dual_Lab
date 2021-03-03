@@ -11,7 +11,6 @@ public class InputFilePath {
         String pathToTheFile = inputPathToTheFile(new Scanner(System.in));
         ParseFile parseFile = new ParseFile(pathToTheFile);
 
+        ScheduleOptimization scheduleOptimization = new ScheduleOptimization(parseFile.parseFile());
     }
-
-
 }

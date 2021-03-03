@@ -1,4 +1,4 @@
-public class ServiceInformation {
+public class ServiceInformation implements Cloneable{
 
     private CompanyName companyName;
 
@@ -23,5 +23,28 @@ public class ServiceInformation {
             return CompanyName.POSH;
         else
             return CompanyName.GROTTY;
+    }
+
+    public void setNewInformation(ServiceInformation serviceInformation){
+        this.companyName = serviceInformation.getCompanyName();
+        this.departureTime = serviceInformation.getDepartureTime();
+        this.arrivalTime = serviceInformation.getArrivalTime();
+    }
+
+    public CompanyName getCompanyName() {
+        return companyName;
+    }
+
+    public TimeMoment getDepartureTime() {
+        return departureTime;
+    }
+
+    public TimeMoment getArrivalTime() {
+        return arrivalTime;
+    }
+
+    @Override
+    public ServiceInformation clone() throws CloneNotSupportedException {
+        return (ServiceInformation)super.clone();
     }
 }

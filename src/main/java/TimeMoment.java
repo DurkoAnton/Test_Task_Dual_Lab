@@ -4,6 +4,8 @@ public class TimeMoment {
 
     private int minute;
 
+    static final int MINUTES_IN_HOUR = 60;
+
     public int getHour() {
         return hour;
     }
