@@ -6,6 +6,8 @@ public class TimeMoment {
 
     static final int MINUTES_IN_HOUR = 60;
 
+    public TimeMoment(){}
+
     public int getHour() {
         return hour;
     }
@@ -40,6 +42,7 @@ public class TimeMoment {
     }
 
     public boolean isLater(TimeMoment moment) {
+
         if (this.hour > moment.hour)
             return true;
         else

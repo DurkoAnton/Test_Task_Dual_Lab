@@ -13,8 +13,12 @@ public class ScheduleOptimization {
         this.listSevices = listSevices;
     }
 
-    public void optimizeSchedule() {
+    public ArrayList<ServiceInformation> optimizeSchedule() {
 
+        chooseMoreEffectiveServices();
+        sortListForDeparture();
+
+        return this.listSevices;
     }
 
     public void chooseMoreEffectiveServices() {
@@ -23,24 +27,38 @@ public class ScheduleOptimization {
             for (int j = i + 1; j < listSevices.size(); j++) {
 
                 if (checkIsServicesOneTimeDeparture(listSevices.get(i), listSevices.get(j))) {
-
                     if (checkIsAFasterArrivalsB(listSevices.get(i), listSevices.get(j))) {
                         listSevices.remove(j);
-                        //i--;
                         break;
+                    }
+                    if (listSevices.get(i).getArrivalTime().equals(listSevices.get(j).getArrivalTime())) {
+                        if (listSevices.get(i).getCompanyName() == CompanyName.POSH
+                                || listSevices.get(i).getCompanyName()==listSevices.get(j).getCompanyName()) {
+                            listSevices.remove(j);
+                            break;
+                        }
                     }
                 } else {
                     if (checkIsADepartureLaterB(listSevices.get(i), listSevices.get(j))) {
-
                         if (checkIsAFasterArrivalsB(listSevices.get(i), listSevices.get(j))) {
                             listSevices.remove(j);
-                            //i--;
                             break;
                         }
-
-                        if(listSevices.get(i).getArrivalTime().equals(listSevices.get(j).getArrivalTime())){
-                            if(listSevices.get(i).getCompanyName()==CompanyName.POSH){
+                        if (listSevices.get(i).getArrivalTime().equals(listSevices.get(j).getArrivalTime())) {
+                            if (listSevices.get(i).getCompanyName() == CompanyName.POSH) {
                                 listSevices.remove(j);
+                                break;
+                            }
+                        }
+                    } else {
+                        if (checkIsADepartureEarlyB(listSevices.get(i), listSevices.get(j))) {
+                            if (listSevices.get(i).getArrivalTime().equals(listSevices.get(j).getArrivalTime())) {
+                                if (listSevices.get(i).getCompanyName() == CompanyName.POSH
+                                || listSevices.get(i).getCompanyName()==listSevices.get(j).getCompanyName()) {
+                                    listSevices.remove(i);
+                                    i--;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -51,6 +69,13 @@ public class ScheduleOptimization {
 
     public boolean checkIsADepartureLaterB(ServiceInformation serviceA, ServiceInformation serviceB) {
         if (serviceA.getDepartureTime().isLater(serviceB.getDepartureTime()))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkIsADepartureEarlyB(ServiceInformation serviceA, ServiceInformation serviceB) {
+        if (serviceA.getDepartureTime().isEarly(serviceB.getDepartureTime()))
             return true;
         else
             return false;
@@ -80,7 +105,7 @@ public class ScheduleOptimization {
         return false;
     }
 
-    public void sortListForDeparture() throws CloneNotSupportedException {
+    public void sortListForDeparture() {
 
         ServiceInformation temp = null;
 
@@ -96,7 +121,12 @@ public class ScheduleOptimization {
                 if (listSevices.get(j).getDepartureTime().getHour() <= listSevices.get(i).getDepartureTime().getHour()) {
                     if (listSevices.get(j).getDepartureTime().getMinute() <= listSevices.get(i).getDepartureTime().getMinute()) {
 
-                        temp = listSevices.get(i).clone();
+                        try {
+                            temp = listSevices.get(i).clone();
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+
                         listSevices.get(i).setNewInformation(listSevices.get(j));
                         listSevices.get(j).setNewInformation(temp);
                     }

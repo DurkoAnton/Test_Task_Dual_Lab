@@ -2,7 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class ParseFile {
-    private String pathToTheFile;
+
+    private final String pathToTheFile;
 
     ParseFile() {
         pathToTheFile = null;
