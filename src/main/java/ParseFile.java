@@ -25,6 +25,7 @@ public class ParseFile {
                 listServices.add(new ServiceInformation(oneServiceLine.split(" ")));
                 oneServiceLine = reader.readLine();
             }
+            reader.close();
 
         } catch (IOException e) {
             e.printStackTrace();
