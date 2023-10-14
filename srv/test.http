@@ -1,0 +1,4 @@
+POST http://localhost:4004/odata/v4/dev/Test(ID=546d1b08-f98c-4bdc-9b91-4ad54107982c)/dev.assignQuestionsToTest 
+Content-Type: application/json 
+
+{"questionsCount": 3} 
